@@ -1,0 +1,23 @@
+{
+  "name": "qiankun-demo",
+  "version": "1.0.0",
+  "description": "基于qiankun的vue3和vite的微前端",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm-run-all --serial install:*",
+    "install:base": "cd  Aladdin-Frame-Base && tyarn install",
+    "install:vite": "cd  Aladdin-Sub-Vite && tyarn install",
+    "install:webpack": "cd Aladdin-Sub-webpack && tyarn install",
+    "dev": "npm-run-all --parallel start:*",
+    "start:base": "cd Aladdin-Frame-Base && npm run dev",
+    "start:vite": "cd Aladdin-Sub-Vite && npm run dev",
+    "start:webpack": "cd Aladdin-Sub-webpack &&  npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
