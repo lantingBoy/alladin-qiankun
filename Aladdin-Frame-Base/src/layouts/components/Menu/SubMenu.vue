@@ -2,17 +2,16 @@
   <template v-for="subItem in menuList" :key="subItem.path">
     <el-sub-menu v-if="subItem.children?.length" :index="subItem.path">
       <template #title>
-        <el-icon>
-          <component :is="subItem.meta.icon"></component>
-        </el-icon>
+        <i :class="[subItem.meta.icon, 'iconfont']"></i>
         <span class="sle">{{ subItem.meta.title }}</span>
       </template>
       <SubMenu :menu-list="subItem.children" />
     </el-sub-menu>
     <el-menu-item v-else :index="subItem.path" @click="handleClickMenu(subItem)">
-      <el-icon>
+      <!-- <el-icon>
         <component :is="subItem.meta.icon"></component>
-      </el-icon>
+      </el-icon> -->
+      <i :class="[subItem.meta.icon, 'iconfont']"></i>
       <template #title>
         <span class="sle">{{ subItem.meta.title }}</span>
       </template>
@@ -35,7 +34,10 @@ const handleClickMenu = (subItem: Menu.MenuOptions) => {
 <style lang="scss">
 .el-sub-menu .el-sub-menu__title:hover {
   color: var(--el-menu-hover-text-color) !important;
-  background-color: transparent !important;
+  background-color: $el-menu-hoverBg;
+}
+.sle {
+  margin: 0 10px;
 }
 .el-menu--collapse {
   .is-active {
@@ -44,22 +46,44 @@ const handleClickMenu = (subItem: Menu.MenuOptions) => {
       background-color: var(--el-color-primary) !important;
     }
   }
+  .el-menu-item {
+    height: $el-menu-collapse-height;
+  }
+}
+
+.el-menu--vertical:not(.el-menu--collapse):not(.el-menu--popup-container) .el-menu-item,
+.el-menu--vertical:not(.el-menu--collapse):not(.el-menu--popup-container) .el-sub-menu__title {
+  height: $el-menu-height;
+  line-height: $el-menu-height;
+  border-radius: $el-menu-radius;
+}
+.el-menu-item {
+  height: $el-menu-height;
+  line-height: $el-menu-height;
+  border-radius: $el-menu-radius;
 }
 .el-menu-item {
   &:hover {
     color: var(--el-menu-hover-text-color);
+    background-color: $el-menu-hoverBg;
+    border-radius: $el-menu-radius;
+    .iconfont {
+      scale: (1.25);
+      transition: all 0.4s;
+    }
   }
   &.is-active {
     color: var(--el-menu-active-color) !important;
     background-color: var(--el-menu-active-bg-color) !important;
-    &::before {
+    border-radius: $el-menu-radius;
+    /*  &::before {
       position: absolute;
       top: 0;
       bottom: 0;
       width: 4px;
       content: "";
       background-color: var(--el-color-primary);
-    }
+    } */
   }
 }
 .vertical,

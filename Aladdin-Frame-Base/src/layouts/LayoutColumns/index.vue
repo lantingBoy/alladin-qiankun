@@ -7,22 +7,25 @@
       </div>
       <el-scrollbar>
         <div class="split-list">
-          <div
-            v-for="item in menuList"
-            :key="item.path"
-            class="split-item"
-            :class="{ 'split-active': splitActive === item.path || `/${splitActive.split('/')[1]}` === item.path }"
-            @click="changeSubMenu(item)"
-          >
-            <el-icon>
-              <component :is="item.meta.icon"></component>
-            </el-icon>
-            <span class="title">{{ item.meta.title }}</span>
+          <div v-for="item in menuList" :key="item.path" class="split-item-wrap">
+            <div
+              class="split-item"
+              :class="{ 'split-active': splitActive === item.path || `/${splitActive.split('/')[1]}` === item.path }"
+              @click="changeSubMenu(item)"
+            >
+              <el-icon>
+                <component :is="item.meta.icon"></component>
+              </el-icon>
+              <span class="title">{{ item.meta.title }}</span>
+            </div>
           </div>
         </div>
       </el-scrollbar>
     </div>
-    <el-aside :class="{ 'not-aside': !subMenuList.length }" :style="{ width: isCollapse ? '65px' : '210px' }">
+    <el-aside
+      :class="{ 'not-aside': !subMenuList.length, 'el-aside-collapse': isCollapse }"
+      :style="{ width: isCollapse ? '65px' : '180px' }"
+    >
       <div class="logo flx-center">
         <span v-show="subMenuList.length" class="logo-text">{{ isCollapse ? "G" : "恒达企业云" }}</span>
       </div>
@@ -33,8 +36,11 @@
           :collapse="isCollapse"
           :collapse-transition="false"
           :unique-opened="true"
+          class="menu-radius"
         >
-          <SubMenu :menu-list="subMenuList" />
+          <div class="sidebar-item">
+            <SubMenu :menu-list="subMenuList" />
+          </div>
         </el-menu>
       </el-scrollbar>
     </el-aside>
